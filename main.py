@@ -28,6 +28,10 @@ def main_menu():
         # Panggil Engine C++
         process = subprocess.run(['./engine.exe', start, end], capture_output=True, text=True)
         jarak = float(process.stdout.strip())
+
+        if process.stderr:
+            print(" ")
+            print(process.stderr)
         
         print(f"\n✔ Rute Ditemukan!")
         print(f"Total Jarak: {jarak:.2f} km")
