@@ -30,7 +30,8 @@ def show_loading(duration=2):
 
 def main_menu():
     os.system('cls' if os.name == 'nt' else 'clear')
-    print(f"\n{border}\n   Aplikasi Rekomendasi Wisata Bandung\n{border}")
+    judul = "\033[1m   Aplikasi Rekomendasi Wisata Bandung\033[0m"
+    print(f"\n{border}\n{judul}\n{border}")
     for i, tempat in enumerate(nama_tempat):
         print(f"{i:2}: {tempat}")
 
@@ -38,8 +39,8 @@ def main_menu():
         print(text.center(spasi))
     
     try:
-        start = input("\n>> ID Titik Awal: ")
-        end = input(">> ID Tujuan: ")
+        start = input("\n>> ID Titik Awal (0-12): ")
+        end = input(">> ID Tujuan (0-12): ")
         
         print()
         show_loading(1.5) 
