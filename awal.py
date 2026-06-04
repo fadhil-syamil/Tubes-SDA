@@ -38,4 +38,9 @@ def main_menu():
 if __name__ == "__main__":
     while True:
         main_menu()
-        if input("\nCari lagi? (y/n): ").lower() != 'y': break
+        if input("\nCari lagi? (y/n): ").lower() != 'y':
+            print("\n" + border)
+            print("Terima kasih telah menggunakan Aplikasi Rekomendasi Wisata Bandung!")
+            print("Sampai jumpa di perjalanan Anda berikutnya!")
+            print(border + "\n")
+            break
