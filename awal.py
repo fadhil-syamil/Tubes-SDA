@@ -39,23 +39,42 @@ def main_menu():
         print(text.center(spasi))
     
     try:
-        start = input("\n>> ID Titik Awal (0-12): ")
-        end = input(">> ID Tujuan (0-12): ")
+        start = int(input("\n>> ID Titik Awal (0-12): "))
+        end = int(input(">> ID Tujuan (0-12): "))
+        
+        if start < 0 or start >= len(nama_tempat):
+            print("ID Titik tidak valid!")
+            return
+
+        if end < 0 or end >= len(nama_tempat):
+            print("ID tidak valid!")
+            return
+        
+        if start == end:
+            print("Titik Awal dan Tujuan tidak boleh sama!")
+            return
+        
         
         print()
         show_loading(1.5) 
         
         # Panggil Engine C++
-        process = subprocess.run(['./engine.exe', start, end], capture_output=True, text=True)
-        jarak = float(process.stdout.strip())
+        process = subprocess.run(['./engine.exe', str(start), str(end)], capture_output=True, text=True)
+        
+        hasil = process.stdout.strip().split('\n')
+
+        jarak = float(hasil[0])
+        rute = hasil[1]
         
         print()
         print_center("✔ Rute Ditemukan!")
         print(f"{border}")
+        print_center(f"Rute: {rute}")
         print_center(f"Total Jarak: {jarak:.2f} km")
         print_center(f"Estimasi: {int(jarak * 10)} - {int(jarak * 15)} Menit")
-    except:
-        print("Error: Pastikan engine.exe sudah dikompilasi!")
+    except Exception as e:
+        print("Terjadi error:")
+        print(e)
 
 if __name__ == "__main__":
     while True:

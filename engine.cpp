@@ -9,6 +9,7 @@
 using namespace std;
 
 const double INF = numeric_limits<double>::infinity();
+vector<string> namaTempat;
 double graph[13][13] = {0};
 
 const int kapasitas = 13;
@@ -76,6 +77,18 @@ int pop() {
   }
 }
 
+int peek()
+{
+    if(isEmpty() == 0)
+    {
+        return stack.temp[stack.top];
+    }
+    else
+    {
+        return -1;
+    }
+}
+
 void findStack(int data) {
   int tmp, itmp;
   int ditemukan = 0;
@@ -114,8 +127,29 @@ void load_csv() {
   }
 }
 
+//tambahan
+void load_nama()
+{
+    ifstream file("namaTempat.csv");
+
+    string line;
+
+    getline(file,line);
+
+    while(getline(file,line))
+    {
+        stringstream ss(line);
+
+        string id,nama;
+
+        getline(ss,id,',');
+        getline(ss,nama,',');
+
+        namaTempat.push_back(nama);
+    }
+}
+
 void dijkstra(int start, int end) {
-  load_csv(); // Panggil fungsi load data
   int n = 13;
   vector<double> dist(n, INF);
   vector<int> prev(n, -1);
@@ -144,17 +178,23 @@ void dijkstra(int start, int end) {
     cur = prev[cur];
   }
 
+  string route = "";
   cerr << "\n=== Rute Kunjungan (dari start ke end) ===" << endl;
-  while (isEmpty() == 0) {
+  while(isEmpty() == 0)
+{
     int node = pop();
-    cerr << node;
-    if (isEmpty() == 0) {
-      cerr << " -> ";
+
+    route += namaTempat[node];
+
+    if(isEmpty() == 0)
+    {
+        route += " -> ";
     }
-  }
+}
   cerr << endl;
   cerr << "===========================================" << endl;
   cout << dist[end] << endl; // Mengirim hasil ke Python
+  cout << route << endl; // Mengirim rute ke Python
 }
 
 int main(int argc, char *argv[]) {
@@ -162,6 +202,10 @@ int main(int argc, char *argv[]) {
     cerr << "Usage: engine.exe <start> <end>" << endl;
     return 1;
   }
+
+  load_csv();  // Panggil fungsi load CSV
+  load_nama(); // Panggil fungsi load nama
+
   dijkstra(stoi(argv[1]), stoi(argv[2]));
   return 0;
 }
