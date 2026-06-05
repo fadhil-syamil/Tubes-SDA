@@ -1,14 +1,14 @@
-id,namaTempat
-0,Gedung Sate
-1,Braga
-2,Museum KAA
-3,Museum Geologi
-4,Gereja Katedral
-5,Hotel Savoy Homann
-6,Gedung Indonesia Menggugat
-7,Paris Van Java
-8,Villa ISOLA
-9,Tahura Ir. H. Djuanda
-10,Dago Dreampark
-11,Observatorium Bosscha
-12,Selasar Sunaryo Art Space
+id,namaTempat,deskripsi
+0,Gedung Sate,Pusat pemerintahan Jawa Barat dengan gaya arsitektur kolonial.
+1,Braga,Kawasan bersejarah yang terkenal dengan suasana tempo dulu dan kulinernya.
+2,Museum KAA,Saksi bisu Konferensi Asia Afrika tahun 1955.
+3,Museum Geologi,Tempat edukasi tentang sejarah bumi, fosil, dan batuan.
+4,Gereja Katedral,Gereja bersejarah dengan arsitektur neo-gotik yang ikonik.
+5,Hotel Savoy Homann,Hotel bersejarah yang menjadi ikon arsitektur art deco di Bandung.
+6,Gedung Indonesia Menggugat,Tempat bersejarah saat Bung Karno membacakan pledoi.
+7,Paris Van Java,Pusat perbelanjaan dengan konsep terbuka dan area taman yang luas.
+8,Villa ISOLA,Bangunan bersejarah peninggalan Belanda yang kini berada di area UPI.
+9,Tahura Ir. H. Djuanda,Kawasan hutan lindung yang sejuk untuk melepas penat.
+10,Dago Dreampark,Destinasi wisata keluarga dengan banyak spot foto menarik.
+11,Observatorium Bosscha,Pusat penelitian astronomi tertua di Indonesia.
+12,Selasar Sunaryo Art Space,Ruang seni kontemporer dengan pemandangan alam yang indah.
