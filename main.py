@@ -1,8 +1,9 @@
 import os
 import subprocess
 import csv
-
-border = "─" * 45
+import time
+import sys
+border = "─" * 60
 
 def load_data():
     data_tempat = {} 
@@ -17,47 +18,70 @@ def load_data():
 
 data_tempat = load_data()
 
+def show_loading(duration=2):
+    print("\nMenghitung Rute dan Estimasi Waktu", end="")
+    for _ in range(3):
+        time.sleep(duration / 3)
+        sys.stdout.write(".")
+        sys.stdout.flush()
+    print("\n")
+
 def main_menu():
     os.system('cls' if os.name == 'nt' else 'clear')
-    print(f"\n{border}\n   Aplikasi Rekomendasi Wisata Bandung\n{border}")
+    print(f"\n{border}")
+    print(f"       SELAMAT DATANG DI JEJAK BANDUNG")
+    print(f"   Temukan rute wisata terbaikmu hari ini!")
+    print(f"{border}")
+
+    print(f"{'ID':<4} | {'Destinasi Wisata'}")
+    print("-" * 30)
     for id_tempat, info in data_tempat.items():
-        print(f"{id_tempat:2}: {info['nama']}")
+        print(f"{id_tempat:<4} | {info['nama']}")
     
     try:
-        start = int(input("\n>> ID Titik Awal: "))
-        end = int(input(">> ID Tujuan: "))
+        print(f"\n{border}")
+        start = int(input(">> Masukkan ID Titik Awal : "))
+        end = int(input(">> Masukkan ID Tujuan     : "))
         
         if start not in data_tempat or end not in data_tempat:
-            print("ID Titik tidak valid!")
+            print("\n[!] ID tidak ditemukan. Silakan cek kembali.")
+            input("\nTekan Enter untuk mencoba lagi...")
             return
         
         if start == end:
-            print("Titik Awal dan Tujuan tidak boleh sama!")
+            print("\n[!] Titik awal dan tujuan tidak boleh sama.")
+            input("\nTekan Enter untuk mencoba lagi...")
             return
         
-        print(f"\n--- Detail Lokasi ---")
-        print(f"Awal  : {data_tempat[start]['nama']} ({data_tempat[start]['deskripsi']})")
-        print(f"Tujuan: {data_tempat[end]['nama']} ({data_tempat[end]['deskripsi']})")
-        
-        # Panggil Engine C++
+        print(f"\n{border}")
+        print(f"MEMPROSES JEJAK PERJALANAN...")
+        print(f"Dari : {data_tempat[start]['nama']} - {data_tempat[start]['deskripsi']}")
+        print(f"Ke   : {data_tempat[end]['nama']} - {data_tempat[end]['deskripsi']}")
+        print(f"{border}")
+
+        show_loading(1.5)
+
         process = subprocess.run(['./engine.exe', str(start), str(end)], capture_output=True, text=True)
         hasil = process.stdout.strip().split('\n')
 
         jarak = float(hasil[0])
         rute = hasil[1]
 
-        print(f"\n✔ Rute Ditemukan!")
-        print(f"Rute: {rute}")
-        print(f"Total Jarak: {jarak:.2f} km")
-        print(f"Estimasi: {int(jarak * 10)} - {int(jarak * 15)} Menit")
+        print(f"✔ Rute Ditemukan!")
+        print(f"Jalur Utama : {rute}")
+        print(f"Total Jarak : {jarak:.2f} km")
+        print(f"Estimasi    : {int(jarak * 10)} - {int(jarak * 15)} menit perjalanan.")
         
     except Exception as e:
-        print("Terjadi error:", e)
+        print(f"\n[!] Terjadi error teknis: {e}")
+        input("\nTekan Enter untuk kembali...")
 
 if __name__ == "__main__":
     while True:
         main_menu()
-        if input("\nCari lagi? (y/n): ").lower() != 'y':
-            print("\n" + border)
-            print("Terima kasih telah menggunakan Aplikasi Rekomendasi Wisata Bandung!")
+        if input("\nIngin mencari jejak lainnya? (y/n): ").lower() != 'y':
+            print(f"\n{border}")
+            print("Terima kasih telah menggunakan Jejak Bandung!")
+            print("Sampai jumpa di perjalanan berikutnya!")
+            print(f"{border}\n")
             break
