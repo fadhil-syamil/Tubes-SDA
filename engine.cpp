@@ -48,7 +48,6 @@ void push (int data) {
   else {
     stack.top++;
     stack.temp[stack.top] = data;
-    // cerr << "Data " << stack.temp[stack.top] << " berhasil masuk ke dalam stack" << endl;
   }
 }
 
@@ -116,7 +115,7 @@ void findStack(int data) {
 void load_csv() {
   ifstream file("dataJarak.csv");
   string line, val;
-  getline(file, line); // Skip header
+  getline(file, line);
   while (getline(file, line)) {
     stringstream ss(line);
     string u_str, v_str, d_str;
@@ -127,7 +126,6 @@ void load_csv() {
   }
 }
 
-//tambahan
 void load_nama()
 {
     ifstream file("namaTempat.csv");
@@ -193,8 +191,8 @@ void dijkstra(int start, int end) {
 }
   cerr << endl;
   cerr << "===========================================" << endl;
-  cout << dist[end] << endl; // Mengirim hasil ke Python
-  cout << route << endl; // Mengirim rute ke Python
+  cout << dist[end] << endl; 
+  cout << route << endl; 
 }
 
 int main(int argc, char *argv[]) {
@@ -203,8 +201,8 @@ int main(int argc, char *argv[]) {
     return 1;
   }
 
-  load_csv();  // Panggil fungsi load CSV
-  load_nama(); // Panggil fungsi load nama
+  load_csv(); 
+  load_nama(); 
 
   dijkstra(stoi(argv[1]), stoi(argv[2]));
   return 0;
